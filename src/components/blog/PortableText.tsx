@@ -1,6 +1,6 @@
 /**
- * Portable Text Renderer
- * Renders Sanity's portable text (rich text content)
+ * Premium Portable Text Renderer
+ * Beautiful typography for article content with the editorial design system
  */
 
 import Image from 'next/image';
@@ -24,9 +24,6 @@ interface PortableTextRendererProps {
   blocks: PortableTextBlock[];
 }
 
-/**
- * Custom renderers for different block types
- */
 const serializers = {
   block: (block: PortableTextBlock): ReactNode => {
     const { style = 'normal', children } = block;
@@ -34,31 +31,39 @@ const serializers = {
     switch (style) {
       case 'h1':
         return (
-          <h1 className="text-4xl font-bold mt-8 mb-4 first:mt-0">
+          <h1 className="text-3xl md:text-4xl font-display font-bold text-surface-900 dark:text-white mt-12 mb-5 first:mt-0">
             {renderChildren(children)}
           </h1>
         );
       case 'h2':
         return (
-          <h2 className="text-3xl font-bold mt-6 mb-3">
+          <h2 className="text-2xl md:text-3xl font-display font-bold text-surface-900 dark:text-white mt-10 mb-4">
             {renderChildren(children)}
           </h2>
         );
       case 'h3':
         return (
-          <h3 className="text-2xl font-bold mt-5 mb-2">
+          <h3 className="text-xl md:text-2xl font-display font-semibold text-surface-900 dark:text-white mt-8 mb-3">
             {renderChildren(children)}
           </h3>
         );
+      case 'h4':
+        return (
+          <h4 className="text-lg font-display font-semibold text-surface-900 dark:text-white mt-6 mb-2">
+            {renderChildren(children)}
+          </h4>
+        );
       case 'blockquote':
         return (
-          <blockquote className="border-l-4 border-blue-500 pl-4 italic my-6 text-gray-700 dark:text-gray-300">
-            {renderChildren(children)}
+          <blockquote className="relative my-8 pl-6 py-4 border-l-[3px] border-brand-400 dark:border-brand-500 bg-brand-50/50 dark:bg-brand-950/20 rounded-r-xl">
+            <div className="italic text-surface-600 dark:text-surface-300 text-lg leading-relaxed">
+              {renderChildren(children)}
+            </div>
           </blockquote>
         );
       default:
         return (
-          <p className="mb-4 leading-relaxed text-gray-800 dark:text-gray-200">
+          <p className="mb-5 leading-[1.8] text-surface-600 dark:text-surface-300 text-[1.0625rem]">
             {renderChildren(children)}
           </p>
         );
@@ -68,13 +73,18 @@ const serializers = {
   list: (list: PortableTextBlock): ReactNode => {
     const listType = list._type === 'bullet' ? 'ul' : 'ol';
     const listClass =
-      listType === 'ul' ? 'list-disc list-inside pl-4' : 'list-decimal list-inside pl-4';
+      listType === 'ul'
+        ? 'list-none space-y-2 my-6 pl-0'
+        : 'list-decimal list-inside pl-4 space-y-2 my-6';
 
     return (
-      <div className={`my-4 ${listClass}`}>
+      <div className={listClass}>
         {list.children?.map((item: any) => (
-          <li key={item._key} className="mb-2">
-            {renderChildren(item.children)}
+          <li key={item._key} className="flex items-start gap-3 text-surface-600 dark:text-surface-300">
+            {listType === 'ul' && (
+              <span className="w-1.5 h-1.5 rounded-full bg-brand-500 mt-2.5 shrink-0" />
+            )}
+            <span className="leading-relaxed">{renderChildren(item.children)}</span>
           </li>
         ))}
       </div>
@@ -85,24 +95,39 @@ const serializers = {
     if (!image.asset?.url) return null;
 
     return (
-      <figure className="my-6">
-        <Image
-          src={image.asset.url}
-          alt={image.alt || 'Post image'}
-          width={800}
-          height={600}
-          className="w-full rounded-lg"
-        />
-        {image.alt && <figcaption className="text-sm text-gray-600 mt-2">{image.alt}</figcaption>}
+      <figure className="my-10">
+        <div className="rounded-2xl overflow-hidden">
+          <Image
+            src={image.asset.url}
+            alt={image.alt || 'Article image'}
+            width={800}
+            height={600}
+            className="w-full h-auto"
+          />
+        </div>
+        {image.alt && (
+          <figcaption className="text-center text-sm text-surface-400 dark:text-surface-500 mt-3 italic">
+            {image.alt}
+          </figcaption>
+        )}
       </figure>
     );
   },
 
   code: (code: PortableTextBlock): ReactNode => {
     return (
-      <pre className="bg-gray-900 text-gray-100 p-4 rounded-lg overflow-x-auto my-6">
-        <code className="text-sm font-mono">{code.text}</code>
-      </pre>
+      <div className="my-8 rounded-2xl overflow-hidden border border-surface-200 dark:border-surface-800">
+        <div className="flex items-center gap-2 px-4 py-3 bg-surface-100 dark:bg-surface-800 border-b border-surface-200 dark:border-surface-700">
+          <span className="w-3 h-3 rounded-full bg-red-400/80" />
+          <span className="w-3 h-3 rounded-full bg-yellow-400/80" />
+          <span className="w-3 h-3 rounded-full bg-green-400/80" />
+        </div>
+        <pre className="bg-surface-50 dark:bg-surface-900 p-5 overflow-x-auto scrollbar-thin">
+          <code className="text-sm font-mono text-surface-800 dark:text-surface-200 leading-relaxed">
+            {code.text}
+          </code>
+        </pre>
+      </div>
     );
   },
 };
@@ -118,7 +143,7 @@ function renderChildren(children?: any[]): ReactNode {
           href={child.href || '#'}
           target={child.blank ? '_blank' : undefined}
           rel={child.blank ? 'noopener noreferrer' : undefined}
-          className="text-blue-600 hover:underline dark:text-blue-400"
+          className="text-brand-600 dark:text-brand-400 font-medium border-b border-brand-300/50 dark:border-brand-700/50 hover:border-brand-500 dark:hover:border-brand-400 transition-colors"
         >
           {renderChildren(child.children)}
         </Link>
@@ -126,7 +151,11 @@ function renderChildren(children?: any[]): ReactNode {
     }
 
     if (child._type === 'strong') {
-      return <strong key={child._key}>{renderChildren(child.children)}</strong>;
+      return (
+        <strong key={child._key} className="font-semibold text-surface-900 dark:text-white">
+          {renderChildren(child.children)}
+        </strong>
+      );
     }
 
     if (child._type === 'em') {
@@ -135,7 +164,7 @@ function renderChildren(children?: any[]): ReactNode {
 
     if (child._type === 'code') {
       return (
-        <code key={child._key} className="bg-gray-200 dark:bg-gray-800 px-2 py-1 rounded">
+        <code key={child._key} className="px-1.5 py-0.5 rounded-md bg-surface-100 dark:bg-surface-800 text-brand-600 dark:text-brand-400 text-sm font-mono font-medium">
           {child.text}
         </code>
       );
@@ -145,29 +174,23 @@ function renderChildren(children?: any[]): ReactNode {
   });
 }
 
-/**
- * Main Portable Text Renderer
- */
 export function PortableText({ blocks }: PortableTextRendererProps) {
   if (!blocks || !Array.isArray(blocks)) {
     return null;
   }
 
   return (
-    <div className="prose prose-sm sm:prose lg:prose-lg dark:prose-invert max-w-none">
+    <div className="prose-custom">
       {blocks.map((block) => {
         if (block._type === 'block') {
           return <div key={block._key}>{serializers.block(block)}</div>;
         }
-
         if (block._type === 'image') {
           return <div key={block._key}>{serializers.image(block)}</div>;
         }
-
         if (block._type === 'code') {
           return <div key={block._key}>{serializers.code(block)}</div>;
         }
-
         return null;
       })}
     </div>

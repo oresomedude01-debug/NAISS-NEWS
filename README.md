@@ -215,26 +215,51 @@ export const SITE_CONFIG: SiteConfig = {
 
 ---
 
-## 🚀 Deployment
+## 🚀 Deployment to Vercel via GitHub
 
-### Deploy to Vercel (Recommended for Free Tier)
+### Quick Start (Recommended)
+1. Push code to GitHub
+2. Go to [vercel.com/new](https://vercel.com/new)
+3. Import your GitHub repository
+4. Add environment variables (see below)
+5. Click Deploy ✅
+
+**For detailed instructions, see [VERCEL_DEPLOYMENT.md](VERCEL_DEPLOYMENT.md)**
+
+### Environment Variables Setup
+
+Add these to Vercel Project Settings:
+
+| Variable | Value | Required |
+|----------|-------|----------|
+| `NEXT_PUBLIC_SANITY_PROJECT_ID` | Your Sanity project ID | For CMS |
+| `NEXT_PUBLIC_SANITY_DATASET` | `production` | For CMS |
+| `NEXT_PUBLIC_SANITY_API_VERSION` | `2024-01-01` | For CMS |
+| `NEXT_PUBLIC_SITE_URL` | Your production domain | Yes |
+| `SANITY_API_TOKEN` | Sanity API token | Optional (preview) |
+
+### Automatic Deployments
+- ✅ Auto-deploys on `git push` to `main`
+- ✅ Creates preview for pull requests
+- ✅ Triggers on Sanity webhook
+
+### GitHub Secrets (for CI/CD)
+If using GitHub Actions workflows:
+- `VERCEL_TOKEN` - From Vercel account settings
+- `VERCEL_ORG_ID` - Your Vercel organization ID
+- `VERCEL_PROJECT_ID` - Your Vercel project ID
+
+### Manual Deployment
 ```bash
 # Install Vercel CLI
-npm i -g vercel
+npm install -g vercel
+
+# Login
+vercel login
 
 # Deploy
 vercel
-
-# Set environment variables in Vercel dashboard
-# - NEXT_PUBLIC_SANITY_PROJECT_ID
-# - NEXT_PUBLIC_SANITY_DATASET
-# - SANITY_API_TOKEN (optional)
 ```
-
-### Environment at Vercel
-1. Go to Project Settings
-2. Go to Environment Variables
-3. Add all variables from `.env.local.example`
 
 ---
 

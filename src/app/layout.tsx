@@ -1,19 +1,34 @@
 /**
  * Root Layout
- * Wraps the entire application with theme provider and layout components
+ * Premium editorial layout with Google Fonts and theme provider
  */
 
 import type { Metadata } from 'next';
+import { Inter, Outfit } from 'next/font/google';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
+import { MobileNav } from '@/components/layout/MobileNav';
 import { Providers } from './providers';
 import { SITE_CONFIG } from '@/lib/constants';
 import '@/styles/globals.css';
 
+const inter = Inter({
+  subsets: ['latin'],
+  variable: '--font-inter',
+  display: 'swap',
+});
+
+const outfit = Outfit({
+  subsets: ['latin'],
+  variable: '--font-outfit',
+  display: 'swap',
+  weight: ['400', '500', '600', '700', '800', '900'],
+});
+
 export const metadata: Metadata = {
   title: {
-    template: `%s | ${SITE_CONFIG.name}`,
-    default: SITE_CONFIG.name,
+    template: `%s — ${SITE_CONFIG.name}`,
+    default: `${SITE_CONFIG.name} — Student News & Insights`,
   },
   description: SITE_CONFIG.description,
   openGraph: {
@@ -41,8 +56,8 @@ export const metadata: Metadata = {
 
 export const viewport = {
   themeColor: [
-    { media: '(prefers-color-scheme: light)', content: 'white' },
-    { media: '(prefers-color-scheme: dark)', content: '#000000' },
+    { media: '(prefers-color-scheme: light)', content: '#fafafa' },
+    { media: '(prefers-color-scheme: dark)', content: '#09090b' },
   ],
 };
 
@@ -52,7 +67,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning className={`${inter.variable} ${outfit.variable}`}>
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -70,11 +85,15 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className="bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100">
+      <body className="font-sans antialiased bg-white dark:bg-surface-950 text-surface-700 dark:text-surface-300 scrollbar-thin">
         <Providers>
-          <Navbar />
-          <main className="min-h-screen">{children}</main>
-          <Footer />
+          <div className="relative min-h-screen flex flex-col">
+            <Navbar />
+            <main className="flex-1">{children}</main>
+            <Footer />
+            {/* Mobile bottom navigation — visible on small screens only */}
+            <MobileNav />
+          </div>
         </Providers>
       </body>
     </html>

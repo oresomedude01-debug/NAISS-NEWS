@@ -1,6 +1,9 @@
 import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
+  // Suppress lockfile warning for Vercel
+  outputFileTracingRoot: process.cwd(),
+
   // Enable React strict mode for development
   reactStrictMode: true,
 
