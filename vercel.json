@@ -1,37 +1,26 @@
 {
-  "$schema": "https://openapi.vercel.sh/vercel.json",
   "buildCommand": "npm run build",
   "devCommand": "npm run dev",
   "installCommand": "npm install",
   "framework": "nextjs",
   "outputDirectory": ".next",
-  "env": [
-    {
-      "key": "NEXT_PUBLIC_SANITY_PROJECT_ID",
-      "description": "Your Sanity project ID (get from sanity.io/manage)",
-      "value": ""
+  "env": {
+    "NEXT_PUBLIC_SANITY_PROJECT_ID": {
+      "description": "Your Sanity project ID (get from sanity.io/manage)"
     },
-    {
-      "key": "NEXT_PUBLIC_SANITY_DATASET",
-      "description": "Sanity dataset name (usually 'production')",
-      "value": "production"
+    "NEXT_PUBLIC_SANITY_DATASET": {
+      "description": "Sanity dataset name (usually 'production')"
     },
-    {
-      "key": "NEXT_PUBLIC_SANITY_API_VERSION",
-      "description": "Sanity API version",
-      "value": "2024-01-01"
+    "NEXT_PUBLIC_SANITY_API_VERSION": {
+      "description": "Sanity API version"
     },
-    {
-      "key": "NEXT_PUBLIC_SITE_URL",
-      "description": "Your production site URL",
-      "value": ""
+    "NEXT_PUBLIC_SITE_URL": {
+      "description": "Your production site URL"
     },
-    {
-      "key": "SANITY_API_TOKEN",
-      "description": "Sanity API token for preview mode (optional)",
-      "value": ""
+    "SANITY_API_TOKEN": {
+      "description": "Sanity API token for preview mode (optional)"
     }
-  ],
+  },
   "regions": ["iad1"],
   "functions": {
     "api/**/*.ts": {
