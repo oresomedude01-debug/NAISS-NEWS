@@ -28,7 +28,6 @@ const nextConfig: NextConfig = {
   // Cache strategy for ISR
   onDemandEntries: {
     maxInactiveAge: 60 * 60, // 1 hour
-    maxSize: 50, // Max pages to keep in memory
   },
 
   // Compression

@@ -7,7 +7,7 @@
 import { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
-import { getPostBySlug, getAllPostSlugs, getPaginatedPosts, REVALIDATE_SINGLE_POST } from '@/lib/fetcher';
+import { getPostBySlug, getAllPostSlugs, REVALIDATE_SINGLE_POST } from '@/lib/fetcher';
 import { PortableText } from '@/components/blog/PortableText';
 import { generatePostMetadata, createArticleSchema } from '@/lib/seo';
 import { formatDate, getPostReadingTime } from '@/lib/utils';

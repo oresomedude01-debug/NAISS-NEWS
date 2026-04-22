@@ -6,7 +6,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { Post } from '@/types';
-import { formatDate, truncateText } from '@/lib/utils';
+import { formatDate } from '@/lib/utils';
 
 interface PostCardProps {
   post: Post;

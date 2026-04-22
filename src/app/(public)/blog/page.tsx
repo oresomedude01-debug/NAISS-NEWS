@@ -7,7 +7,7 @@
 import { Metadata } from 'next';
 import { getPaginatedPosts, REVALIDATE_POSTS, getAllCategories } from '@/lib/fetcher';
 import { PostCard } from '@/components/blog/PostCard';
-import { SITE_CONFIG, PAGINATION, SPACING } from '@/lib/constants';
+import { PAGINATION } from '@/lib/constants';
 import Link from 'next/link';
 
 export const metadata: Metadata = {
@@ -50,7 +50,7 @@ async function BlogPage({ searchParams }: BlogPageProps) {
               <>
                 <div className="grid gap-6 md:grid-cols-2">
                   {posts.items.map((post) => (
-                    <PostCard key={post._id} post={post} />
+                    <PostCard key={post._id} post={post as any} />
                   ))}
                 </div>
 

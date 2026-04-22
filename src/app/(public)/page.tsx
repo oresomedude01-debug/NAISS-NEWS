@@ -90,7 +90,7 @@ async function Homepage() {
 
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
               {paginatedPosts.items.map((post) => (
-                <PostCard key={post._id} post={post} />
+                <PostCard key={post._id} post={post as any} />
               ))}
             </div>
           </div>

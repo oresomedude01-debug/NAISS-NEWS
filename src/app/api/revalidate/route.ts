@@ -6,7 +6,7 @@
  * Usage: https://your-site.vercel.app/api/revalidate?secret=YOUR_SECRET&slug=blog-post-slug
  */
 
-import { revalidatePath, revalidateTag } from 'next/cache';
+import { revalidatePath } from 'next/cache';
 import type { NextRequest } from 'next/server';
 
 const REVALIDATE_SECRET = process.env.REVALIDATE_SECRET || 'dev-secret';

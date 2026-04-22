@@ -3,7 +3,7 @@
  * Centralized configuration for consistency and maintainability
  */
 
-import { SiteConfig, NavLink } from '@/types';
+import { SiteConfig } from '@/types';
 
 /**
  * Site Configuration

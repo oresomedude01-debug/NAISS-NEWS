@@ -107,7 +107,7 @@ const serializers = {
   },
 };
 
-function renderChildren(children: any[]): ReactNode {
+function renderChildren(children?: any[]): ReactNode {
   return children?.map((child) => {
     if (typeof child === 'string') return child;
 
