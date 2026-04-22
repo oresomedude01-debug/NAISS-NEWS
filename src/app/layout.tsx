@@ -4,9 +4,9 @@
  */
 
 import type { Metadata } from 'next';
-import { ThemeProvider } from 'next-themes';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
+import { Providers } from './providers';
 import { SITE_CONFIG } from '@/lib/constants';
 import '@/styles/globals.css';
 
@@ -71,11 +71,11 @@ export default function RootLayout({
         />
       </head>
       <body className="bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100">
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+        <Providers>
           <Navbar />
           <main className="min-h-screen">{children}</main>
           <Footer />
-        </ThemeProvider>
+        </Providers>
       </body>
     </html>
   );
