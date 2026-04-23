@@ -8,6 +8,7 @@ import { Inter, Outfit } from 'next/font/google';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import { MobileNav } from '@/components/layout/MobileNav';
+import { ScrollToTop } from '@/components/ui/ScrollToTop';
 import { Providers } from './providers';
 import { SITE_CONFIG } from '@/lib/constants';
 import '@/styles/globals.css';
@@ -87,12 +88,20 @@ export default function RootLayout({
       </head>
       <body className="font-sans antialiased bg-white dark:bg-surface-950 text-surface-700 dark:text-surface-300 scrollbar-thin">
         <Providers>
+          {/* Skip to main content — accessibility */}
+          <a
+            href="#main-content"
+            className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:rounded-xl focus:bg-brand-600 focus:text-white focus:font-semibold focus:shadow-lg focus:outline-none"
+          >
+            Skip to main content
+          </a>
+
           <div className="relative min-h-screen flex flex-col">
             <Navbar />
-            <main className="flex-1">{children}</main>
+            <main id="main-content" className="flex-1">{children}</main>
             <Footer />
-            {/* Mobile bottom navigation — visible on small screens only */}
             <MobileNav />
+            <ScrollToTop />
           </div>
         </Providers>
       </body>

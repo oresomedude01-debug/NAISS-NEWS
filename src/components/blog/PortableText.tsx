@@ -6,6 +6,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { ReactNode } from 'react';
+import { slugify } from '@/lib/utils';
 
 interface PortableTextBlock {
   _type: string;
@@ -24,35 +25,51 @@ interface PortableTextRendererProps {
   blocks: PortableTextBlock[];
 }
 
+function getTextContent(children?: any[]): string {
+  return (
+    children
+      ?.map((c) => (typeof c === 'string' ? c : c?.text ?? ''))
+      .join('') ?? ''
+  );
+}
+
 const serializers = {
   block: (block: PortableTextBlock): ReactNode => {
     const { style = 'normal', children } = block;
 
     switch (style) {
-      case 'h1':
+      case 'h1': {
+        const id = slugify(getTextContent(children));
         return (
-          <h1 className="text-3xl md:text-4xl font-display font-bold text-surface-900 dark:text-white mt-12 mb-5 first:mt-0">
+          <h1 id={id} className="text-3xl md:text-4xl font-display font-bold text-surface-900 dark:text-white mt-12 mb-5 first:mt-0 scroll-mt-24">
             {renderChildren(children)}
           </h1>
         );
-      case 'h2':
+      }
+      case 'h2': {
+        const id = slugify(getTextContent(children));
         return (
-          <h2 className="text-2xl md:text-3xl font-display font-bold text-surface-900 dark:text-white mt-10 mb-4">
+          <h2 id={id} className="text-2xl md:text-3xl font-display font-bold text-surface-900 dark:text-white mt-10 mb-4 scroll-mt-24">
             {renderChildren(children)}
           </h2>
         );
-      case 'h3':
+      }
+      case 'h3': {
+        const id = slugify(getTextContent(children));
         return (
-          <h3 className="text-xl md:text-2xl font-display font-semibold text-surface-900 dark:text-white mt-8 mb-3">
+          <h3 id={id} className="text-xl md:text-2xl font-display font-semibold text-surface-900 dark:text-white mt-8 mb-3 scroll-mt-24">
             {renderChildren(children)}
           </h3>
         );
-      case 'h4':
+      }
+      case 'h4': {
+        const id = slugify(getTextContent(children));
         return (
-          <h4 className="text-lg font-display font-semibold text-surface-900 dark:text-white mt-6 mb-2">
+          <h4 id={id} className="text-lg font-display font-semibold text-surface-900 dark:text-white mt-6 mb-2 scroll-mt-24">
             {renderChildren(children)}
           </h4>
         );
+      }
       case 'blockquote':
         return (
           <blockquote className="relative my-8 pl-6 py-4 border-l-[3px] border-brand-400 dark:border-brand-500 bg-brand-50/50 dark:bg-brand-950/20 rounded-r-xl">

@@ -201,16 +201,10 @@ export default function AboutPage() {
             Ready to Explore?
           </h2>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link
-              href="/blog"
-              className="inline-flex items-center justify-center px-8 py-3 rounded-lg bg-brand-600 hover:bg-brand-700 text-white font-semibold transition"
-            >
+            <Link href="/blog" className="btn-primary px-8 py-3 rounded-xl">
               Read Articles
             </Link>
-            <Link
-              href="/categories"
-              className="inline-flex items-center justify-center px-8 py-3 rounded-lg border-2 border-brand-600 text-brand-600 hover:bg-brand-50 dark:hover:bg-gray-800 font-semibold transition"
-            >
+            <Link href="/categories" className="btn-outline px-8 py-3 rounded-xl">
               Browse Categories
             </Link>
           </div>

@@ -206,3 +206,12 @@ export const ALL_CATEGORIES_QUERY = groq`
   *[_type == "category"] | order(title asc)
   ${CATEGORY}
 `;
+
+/**
+ * QUERY: Related posts (same category, excluding current post)
+ */
+export const RELATED_POSTS_QUERY = groq`
+  *[_type == "post" && category->slug.current == $categorySlug && slug.current != $excludeSlug && status == "published"]
+  | order(publishedAt desc)[0...$limit]
+  ${POST_EXCERPT}
+`;

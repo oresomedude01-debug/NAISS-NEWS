@@ -14,6 +14,7 @@ import {
   ALL_CATEGORY_SLUGS_QUERY,
   ALL_CATEGORIES_QUERY,
   POSTS_BY_AUTHOR_QUERY,
+  RELATED_POSTS_QUERY,
 } from '@/services/sanity/queries';
 import { sanityClient } from '@/services/sanity/client';
 import { Post, PostListItem, Category, Author } from '@/types';
@@ -247,6 +248,33 @@ export async function getPostsByAuthor(
     total: result.total,
     hasMore: (offset + pageSize) < result.total,
   };
+}
+
+/**
+ * GET: Related posts (same category, excluding current post)
+ * ISR: 1 hour
+ */
+export async function getRelatedPosts(
+  categorySlug: string,
+  excludeSlug: string,
+  limit: number = 3
+): Promise<PostListItem[]> {
+  return safeFetch(
+    () =>
+      sanityClient.fetch(RELATED_POSTS_QUERY, {
+        categorySlug,
+        excludeSlug,
+        limit,
+      }),
+    mockPosts
+      .filter(
+        (p) =>
+          p.category.slug.current === categorySlug &&
+          p.slug.current !== excludeSlug
+      )
+      .slice(0, limit),
+    `getRelatedPosts: ${categorySlug}`
+  );
 }
 
 /**

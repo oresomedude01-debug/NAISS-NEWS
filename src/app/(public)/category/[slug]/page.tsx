@@ -131,7 +131,11 @@ async function CategoryPage({ params, searchParams }: CategoryPageProps) {
                         <span className="hidden sm:inline">Previous</span>
                       </Link>
                     ) : (
-                      <span className="btn-ghost rounded-xl px-3 py-2 opacity-40 cursor-not-allowed">
+                      <span
+                        className="btn-ghost rounded-xl px-3 py-2 opacity-40 cursor-not-allowed"
+                        aria-disabled="true"
+                        role="link"
+                      >
                         <ChevronLeft className="w-4 h-4" />
                       </span>
                     )}
@@ -178,7 +182,11 @@ async function CategoryPage({ params, searchParams }: CategoryPageProps) {
                         <ChevronRight className="w-4 h-4" />
                       </Link>
                     ) : (
-                      <span className="btn-ghost rounded-xl px-3 py-2 opacity-40 cursor-not-allowed">
+                      <span
+                        className="btn-ghost rounded-xl px-3 py-2 opacity-40 cursor-not-allowed"
+                        aria-disabled="true"
+                        role="link"
+                      >
                         <ChevronRight className="w-4 h-4" />
                       </span>
                     )}

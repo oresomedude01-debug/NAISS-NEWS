@@ -88,9 +88,11 @@
     transform: translateY(0);
     transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease, border-color 0.3s ease;
   }
-  .card-interactive:hover {
-    transform: translateY(-4px);
-    @apply shadow-elevated border-brand-200/50 dark:border-brand-800/30;
+  @media (hover: hover) {
+    .card-interactive:hover {
+      transform: translateY(-4px);
+      @apply shadow-elevated border-brand-200/50 dark:border-brand-800/30;
+    }
   }
 
   /* ---- Badge/Tag ---- */

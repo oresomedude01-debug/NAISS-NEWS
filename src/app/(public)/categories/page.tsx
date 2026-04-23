@@ -90,11 +90,8 @@ export default async function CategoriesPage() {
             <p className="text-gray-600 dark:text-gray-400 mb-6">
               Categories will appear once content is added.
             </p>
-            <Link
-              href="/blog"
-              className="inline-flex items-center px-6 py-3 rounded-lg bg-brand-600 hover:bg-brand-700 text-white font-semibold transition"
-            >
-              View All Posts →
+            <Link href="/blog" className="btn-primary px-6 py-3 rounded-xl">
+              View All Posts
             </Link>
           </div>
         )}

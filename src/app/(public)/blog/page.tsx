@@ -91,7 +91,11 @@ async function BlogPage({ searchParams }: BlogPageProps) {
                         <span className="hidden sm:inline">Previous</span>
                       </Link>
                     ) : (
-                      <span className="btn-ghost rounded-xl px-3 py-2 opacity-40 cursor-not-allowed">
+                      <span
+                        className="btn-ghost rounded-xl px-3 py-2 opacity-40 cursor-not-allowed"
+                        aria-disabled="true"
+                        role="link"
+                      >
                         <ChevronLeft className="w-4 h-4" />
                         <span className="hidden sm:inline">Previous</span>
                       </span>
@@ -143,7 +147,11 @@ async function BlogPage({ searchParams }: BlogPageProps) {
                         <ChevronRight className="w-4 h-4" />
                       </Link>
                     ) : (
-                      <span className="btn-ghost rounded-xl px-3 py-2 opacity-40 cursor-not-allowed">
+                      <span
+                        className="btn-ghost rounded-xl px-3 py-2 opacity-40 cursor-not-allowed"
+                        aria-disabled="true"
+                        role="link"
+                      >
                         <span className="hidden sm:inline">Next</span>
                         <ChevronRight className="w-4 h-4" />
                       </span>

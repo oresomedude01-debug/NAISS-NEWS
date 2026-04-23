@@ -8,6 +8,7 @@ import Link from 'next/link';
 import { Metadata } from 'next';
 import { getFeaturedPosts, getAllCategories, getPaginatedPosts } from '@/lib/fetcher';
 import { PostCard } from '@/components/blog/PostCard';
+import { AnimatedSection, AnimatedCard } from '@/components/ui/AnimatedSection';
 import { SITE_CONFIG } from '@/lib/constants';
 import {
   TrendingUp,
@@ -67,6 +68,7 @@ async function Homepage() {
       {/* ═══════ HERO SECTION ═══════ */}
       {featuredPosts.length > 0 && (
         <section className="section-sm" id="hero-section">
+          <AnimatedSection>
           <div className="container-page">
             {/* Section header */}
             <div className="flex items-center gap-2 mb-6">
@@ -90,6 +92,7 @@ async function Homepage() {
               </div>
             </div>
           </div>
+          </AnimatedSection>
         </section>
       )}
 
@@ -119,17 +122,17 @@ async function Homepage() {
             </div>
 
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 md:gap-4">
-              {categories.map((category) => {
+              {categories.map((category, i) => {
                 const slug = category.slug.current;
                 const gradient = categoryGradients[slug] || 'from-surface-100 to-surface-50 dark:from-surface-800 dark:to-surface-850';
                 const iconColor = categoryIconColors[slug] || 'text-surface-500';
                 const icon = categoryIcons[slug] || <Layers className="w-5 h-5" />;
 
                 return (
+                  <AnimatedCard key={category._id} delay={i * 0.05}>
                   <Link
-                    key={category._id}
                     href={`/category/${slug}`}
-                    className={`group relative rounded-2xl p-5 text-center bg-gradient-to-br ${gradient} border border-surface-200/50 dark:border-surface-800/50 hover:border-brand-300/50 dark:hover:border-brand-700/30 transition-all duration-300 hover:shadow-card-hover hover:-translate-y-1`}
+                    className={`group relative rounded-2xl p-5 text-center bg-gradient-to-br ${gradient} border border-surface-200/50 dark:border-surface-800/50 hover:border-brand-300/50 dark:hover:border-brand-700/30 transition-all duration-300 hover:shadow-card-hover hover:-translate-y-1 block`}
                     id={`category-${slug}`}
                   >
                     <div className={`w-10 h-10 rounded-2xl mx-auto mb-3 flex items-center justify-center bg-white/80 dark:bg-surface-800/80 shadow-sm ${iconColor} group-hover:scale-110 transition-transform duration-300`}>
@@ -144,6 +147,7 @@ async function Homepage() {
                       </p>
                     )}
                   </Link>
+                  </AnimatedCard>
                 );
               })}
             </div>
@@ -180,8 +184,10 @@ async function Homepage() {
             </div>
 
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-              {paginatedPosts.items.map((post) => (
-                <PostCard key={post._id} post={post as any} />
+              {paginatedPosts.items.map((post, i) => (
+                <AnimatedCard key={post._id} delay={i * 0.07}>
+                  <PostCard post={post as any} />
+                </AnimatedCard>
               ))}
             </div>
           </div>
