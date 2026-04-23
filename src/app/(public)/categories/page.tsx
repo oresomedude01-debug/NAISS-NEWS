@@ -7,7 +7,6 @@ import { Metadata } from 'next';
 import Link from 'next/link';
 import { getAllCategories } from '@/lib/fetcher';
 import { SITE_CONFIG } from '@/lib/constants';
-import { generateMetadata as generateSeoMetadata } from '@/lib/seo';
 
 export const revalidate = 3600; // 1 hour ISR
 
@@ -57,7 +56,7 @@ export default async function CategoriesPage() {
 
                     {/* Category Name */}
                     <h3 className="text-xl font-display font-bold text-gray-900 dark:text-white mb-2 group-hover:text-brand-600 dark:group-hover:text-brand-400 transition">
-                      {category.title || category.name}
+                      {category.title}
                     </h3>
 
                     {/* Category Description */}
