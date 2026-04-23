@@ -7,13 +7,13 @@
 import Link from 'next/link';
 import { Metadata } from 'next';
 import { getFeaturedPosts, getAllCategories, getPaginatedPosts } from '@/lib/fetcher';
+import { HomeHero } from '@/components/sections/HomeHero';
 import { PostCard } from '@/components/blog/PostCard';
-import { AnimatedSection, AnimatedCard } from '@/components/ui/AnimatedSection';
+import { AnimatedCard } from '@/components/ui/AnimatedSection';
 import { SITE_CONFIG } from '@/lib/constants';
 import {
   TrendingUp,
   ArrowRight,
-  Sparkles,
   BookOpen,
   Users,
   Zap,
@@ -67,33 +67,7 @@ async function Homepage() {
     <div className="pb-20 md:pb-0">
       {/* ═══════ HERO SECTION ═══════ */}
       {featuredPosts.length > 0 && (
-        <section className="section-sm" id="hero-section">
-          <AnimatedSection>
-          <div className="container-page">
-            {/* Section header */}
-            <div className="flex items-center gap-2 mb-6">
-              <div className="flex items-center gap-2 badge-brand">
-                <Sparkles className="w-3.5 h-3.5" />
-                <span>Featured</span>
-              </div>
-            </div>
-
-            <div className="grid lg:grid-cols-5 gap-6">
-              {/* Main featured post */}
-              <div className="lg:col-span-3">
-                <PostCard post={featuredPosts[0]} variant="featured" priority />
-              </div>
-
-              {/* Side posts */}
-              <div className="lg:col-span-2 space-y-4">
-                {featuredPosts.slice(1, 4).map((post) => (
-                  <PostCard key={post._id} post={post} variant="horizontal" />
-                ))}
-              </div>
-            </div>
-          </div>
-          </AnimatedSection>
-        </section>
+        <HomeHero mainPost={featuredPosts[0]} sidePosts={featuredPosts.slice(1, 4)} />
       )}
 
       {/* ═══════ CATEGORIES SECTION ═══════ */}
